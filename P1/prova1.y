@@ -9,30 +9,50 @@ void yyerror(const char *msg);
 
 %}
 
+%token INT FLOAT IDENT STRING
+%token PRINT CONCAT LENGTH
+%token ASSIGN LPAREN RPAREN COMMA
 %token ERROR
+
+%left '+' '-'
+%left '*' '/'
 
 %start program
 
 %%
 
-/* programa */
 program
-: stmt_list 
-;
+    : stmt_list
+    ;
 
 stmt_list
-: stmt
-| stmt_list stmt
-;
+    : stmt
+    | stmt_list stmt
+    ;
 
 stmt
-: IDENT ASSIGN expr
-| PRINT LPAREN exprlist RPAREN
-| expr
-;
+    : IDENT ASSIGN expr
+    | PRINT LPAREN exprlist RPAREN
+    | expr
+    ;
+
+exprlist
+    : expr
+    | exprlist COMMA expr
+    ;
 
 expr
-/* completar */
+    : INT
+    | FLOAT
+    | IDENT
+    | STRING
+    | expr '+' expr
+    | expr '-' expr
+    | expr '*' expr
+    | expr '/' expr
+    | LPAREN expr RPAREN
+    | CONCAT LPAREN exprlist RPAREN
+    | LENGTH LPAREN expr RPAREN
+    ;
 
 %%
-
