@@ -41,5 +41,4 @@ for f in e2-tests/*.in; do ./prova1 "$f" /tmp/out.txt; diff /tmp/out.txt "${f%.i
 
 .                  { return ERROR; }
 
-
 %%
